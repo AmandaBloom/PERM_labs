@@ -1,0 +1,6 @@
+Lab 2 PERM 9.03.2023
+-dzielimy sygnał na okienka stałej długości i liczymy dla każdego fouriera
+-większe okienko - możliwość utraty bardzo krótkich zdarzeń w nagraniach
+-maksima lokalne w freq - formanty - służą do wykrywania samogłosek
+-głosku bezdźwięczne nie mają w sobie znacząco harmonicznych - chmura punktów
+-każdy peak jest wielokrotnością bazowej freq
