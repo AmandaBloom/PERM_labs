@@ -4,3 +4,7 @@ Lab 2 PERM 9.03.2023
 -maksima lokalne w freq - formanty - służą do wykrywania samogłosek
 -głosku bezdźwięczne nie mają w sobie znacząco harmonicznych - chmura punktów
 -każdy peak jest wielokrotnością bazowej freq
+
+Szczegóły plików:
+-  dtmf.wav - 1 2 3 4 5 6 7 8 9 * 0 #
+-  dtmf1.wav- 2137 1488 69420 *** #123
