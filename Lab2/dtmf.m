@@ -4,7 +4,7 @@ function [out] = dtmf(x, fs)
 %   [out] = dtmf(x, fs)
 % Gdzie pierw:
 %   [x, fs] = audioread('dtmf.wav')
-
+%
 % Parametry wejściowe:
 %   x  - wektor próbek audio
 %   fs - częstotliwość próbkowania
@@ -33,36 +33,38 @@ nfft = win_len;             % liczba próbek do FFT
 
 % wyznaczenie widma częstotliwości w oknach i wyznaczenie amplitudy funkcji składowych
 % spectrogram(x, win_len, win_overlap, nfft, fs, 'MinThreshold', -100, 'yaxis');
-[s, f, t] = spectrogram(x, win_len, win_overlap, nfft, fs, 'MinThreshold', -100);
+[s, f, ~] = spectrogram(x, win_len, win_overlap, nfft, fs, 'MinThreshold', -100);
 A = abs(s) / nfft;
 
 for i=1:size(A,2)
-    % dwa indexy freq o największej wartości Amplitudy
-    [~, j] = maxk(A(:, i), 2);    
-    freq = [f(j(1)) f(j(2))];
-    sort(freq);
+    % indexy freq o największej wartości Amplitudy
+    % oraz indeksy które są maksymami lokalnymi funkcji A(f)
+    [~, j_max] = maxk(A(:, i), 6);    
+    [~, j_peak] = findpeaks(A(:, i));
 
-%     %inicjacja wektora częstotliwości kluczowych
-%     freq = [];
-%     % wybranie punktów podejrzanych o bycie maximum lokalnym
-%     % j - index punktu podejrzanego
-%     [~, j] = maxk(A(:, i), 6);
-%     if i == 17
-%     end
-%     
-%     for j_index=1:6
-%         f(j(j_index))
-%         if f(j(j_index)+1) < f(j(j_index)) && f(j(j_index)) > f(j(j_index)-1) && f(j(j_index)) > 697*(1-alfa)
-%             % jeśli punkt jest max lokalnym dodajemy jego freq do tablicy
-%             freq = [freq f(j(j_index))];
-%         end
-%     end
-%     %sort(freq);
-% 
-%     if size(freq)==0 | size(freq)==1
-%         freq = [0 0];
-%     end
+    % indexy punktów które na pewno są szukanymi maksymami funkcji o
+    % największych amplitudach - przecięcie zbiorów
+    j = intersect(j_max, j_peak);
+
+    % nie znajdujemy wymaganych częstotliwości - wypełniamy wektor
+    % pierwszym indeksem, aby algorytm mógł przeczytać to jako szum i
+    % zapisać jako "_" w wektorze wynikowym
+    if size(j)==0 | size(j)==1
+         j = [1; 1];
+    end
     
+    % obliczanie częstotliwości dzięki indeksom oraz sortowanie celem
+    % wykrycia w algorytmie
+    freq = [f(j(1)) f(j(2))];
+    freq = sort(freq);
+
+%     % Wykluczanie sytuacji kiedy peak'i częstotliwości są zbyt blisko
+%     % siebie
+%     if freq(2) - freq(1) < 50
+%         disp("przypał")
+%         disp(freq)
+%     end
+
     % spełnienie warunku dla klawiszy 123
     if freq(1) >= (1-alfa)*valuesX(1) && freq(1) <= (1+alfa)*valuesX(1)
 
@@ -114,13 +116,11 @@ for i=1:size(A,2)
     else % freq nierozpoznana
         new_label = "_";
     end
-    % przypisanie wartosci w momencie nie powtarzania sie jej
+    % dopisanie wartosci w momencie nie powtarzania sie jej do wektora out
     if new_label ~= out(size(out))
         out = [out new_label];
     end
 end
-
+    % zamiana wektora stringów na stringa
     out = strrep(string(strjoin((out))), " ","");
-    %out = strrep(out, " ", "");
-    %out = string(strjoin(out));
 end
