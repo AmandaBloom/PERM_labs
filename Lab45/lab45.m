@@ -15,12 +15,15 @@ function lab45()
 
     % należy odciąć freq (<150 Hz , 1.95-2.15kHz , 4-4.2kHz , 6.05-6.25kHz
 
-    F = lowpass_filter(1500, 100, fs); % odcięcie przy 1500Hz
+    F = highpass_filter(2000, 100, fs); % odcięcie przy 1500Hz
 
     sf = conv(x, F);
+    %sf = conv(x, ones(length(F),1)-F);
+    %spectrogram(sf, win_len, win_overlap, nfft, fs, 'MinThreshold', -100, 'yaxis');
     M = round(fs*4/100);
     %plot(F);
-    %sf = (M/2+1:length(sf)-M/2+1)';
+    %sf = (M/2+1:length(sf)-M/2)';
+
     %sf1 = ones(length(sf),1) - sf;
     
     spectrogram(sf, win_len, win_overlap, nfft, fs, 'MinThreshold', -100, 'yaxis');

@@ -1,8 +1,8 @@
 function filter = highpass_filter(fc, bw, fs)
-    filter = lowpass(fc, bw, fs);
-    M = round(fs*4/bw);
-
-    filter = -1*filter;
-    filter(M/2+1) = filter(M/2+1) + 1;
+    filter = lowpass_filter(fc, bw, fs);
+    for i=1:1:size(filter,1)
+        filter(i) = -1*filter(i);
+    end
+    filter((size(filter,1)+1)/2) = filter((size(filter,1)+1)/2) + 1;
     
 end
