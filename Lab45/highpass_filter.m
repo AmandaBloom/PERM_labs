@@ -4,5 +4,4 @@ function filter = highpass_filter(fc, bw, fs)
         filter(i) = -1*filter(i);
     end
     filter((size(filter,1)+1)/2) = filter((size(filter,1)+1)/2) + 1;
-    
 end
