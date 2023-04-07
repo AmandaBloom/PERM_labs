@@ -1,4 +1,4 @@
-function lab45()
+function lab4()
     [x, fs] = audioread('noised.wav');
     
     win_len = 512;   % wielkość okna do analizy
@@ -24,7 +24,7 @@ function lab45()
 
     %sf1 = ones(length(sf),1) - sf;
     
-    spectrogram(sf, win_len, win_overlap, nfft, fs, 'MinThreshold', -100, 'yaxis');
+    spectrogram(F, win_len, win_overlap, nfft, fs, 'MinThreshold', -100, 'yaxis');
     
     %audiowrite('unnoised.wav', sig_filtered, fs);
 end
