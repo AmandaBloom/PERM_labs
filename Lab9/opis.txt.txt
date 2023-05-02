@@ -1,0 +1,34 @@
+Lab 9, 20.04.23r
+kamera stacjonarna, 
+daleko od obiektywu, 
+duża ogniskowa
+
+idealny model otworkowy kamera
+- wada: musi być naświetlane długo bo bardzo
+mało światła pada na sensor
+
+
+stosujemy soczewkę szklaną żeby skupić 
+promienie światła
+
+analogowo - czas naświetlania
+cyfrowo - czas zbierania ładunków na matrycy
+
+parametry, by dodać ostrości:
+1. kadr
+2. ostrość
+3. czas naświetlania - od dynamiki
+4. iso (czułość matrycy) kiedyś, teraz wzmocnienie 
+przetwornika a-c (gain) dB - problem bo zaczyna 
+szumić
+5. dynamika - podbijanie HDR, naświetlanie 
+poszczególnych pixeli w różnych momentach do
+naświetlania by nie przebić bufora (kubełka)
+6. naświetlanie sceny dla kamery (na podczerwień,
+bo zwykłe światła widać) - a) duże światła b)
+stroboskopy (flash triggerującey akwizycję zdjęcia)
+w b łatwiej sterować światłem niżeli kamerą
+
+akwizycja layer-layer powoduje shatter obrazu
+
+10-15 zdjęć - po kątach, krzywo, oby w ostrości
